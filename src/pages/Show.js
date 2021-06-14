@@ -5,12 +5,15 @@ import { apiGet } from '../misc/config';
 const Show = () => {
   const { id } = useParams();
   const [show, setShow] = useState(null);
+
   useEffect(() => {
-    apiGet(`/shows/${id}?embed[]=season&embed[]=cast`).then(results => {
+    apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`).then(results => {
       setShow(results);
     });
   }, [id]);
-  console.log(show);
+
+  console.log('Show', show);
+
   return <div>This is show page</div>;
 };
 
