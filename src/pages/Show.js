@@ -1,12 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
-import Cast from '../components/show/Cast';
+import { apiGet } from '../misc/config';
+import ShowMainData from '../components/show/ShowMainData';
 import Details from '../components/show/Details';
 import Seasons from '../components/show/Seasons';
-import ShowMainData from '../components/show/ShowMainData';
-import { apiGet } from '../misc/config';
-import { InfoBlock, ShowPageWrapper } from './Show.styled';
+import Cast from '../components/show/Cast';
+import { ShowPageWrapper, InfoBlock } from './Show.styled';
 
 const reducer = (prevState, action) => {
   switch (action.type) {
@@ -17,6 +17,7 @@ const reducer = (prevState, action) => {
     case 'FETCH_FAILED': {
       return { ...prevState, isLoading: false, error: action.error };
     }
+
     default:
       return prevState;
   }
@@ -45,7 +46,6 @@ const Show = () => {
           dispatch({ type: 'FETCH_SUCCESS', show: results });
         }
       })
-
       .catch(err => {
         if (isMounted) {
           dispatch({ type: 'FETCH_FAILED', error: err.message });
@@ -64,6 +64,7 @@ const Show = () => {
   if (error) {
     return <div>Error occured: {error}</div>;
   }
+
   return (
     <ShowPageWrapper>
       <ShowMainData
